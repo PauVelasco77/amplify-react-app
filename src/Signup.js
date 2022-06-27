@@ -5,9 +5,10 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
+    console.log("email: ", email);
     e.preventDefault();
-    UserPool.signUp(email, password, [], null, (err, data) => {
+    await UserPool.signUp(email, password, [], null, (err, data) => {
       if (err) {
         console.log(err);
       } else {
@@ -17,11 +18,13 @@ const Signup = () => {
   };
 
   const onChange = (e) => {
-    if (e.target.name === "email") {
+    if (e.target.value === "email") {
       setEmail(e.target.value);
+      console.log(email, password);
     }
-    if (e.target.name === "password") {
+    if (e.target.value === "password") {
       setPassword(e.target.value);
+      console.log(email, password);
     }
   };
 
@@ -29,9 +32,9 @@ const Signup = () => {
     <div>
       <form onSubmit={onSubmit}>
         <label htmlFor="email">email</label>
-        <input type={email} onChange={onChange} />
+        <input type={email} name="email" onChange={onChange} />
         <label htmlFor="password">password</label>
-        <input type={password} onChange={onChange} />
+        <input type={password} name="password" onChange={onChange} />
         <button type="submit">Signup</button>
       </form>
     </div>
