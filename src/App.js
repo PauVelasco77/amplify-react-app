@@ -1,16 +1,27 @@
 import { useState } from "react";
 import "./App.css";
-import AuthSignin from "./AuthSignin";
-import AuthSignup from "./AuthSignup";
-import SignOut from "./Signout";
+import AuthSignin from "./pages/AuthSignin";
+import AuthSignup from "./pages/AuthSignup";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   return (
     <>
-      <AuthSignup />
-      <AuthSignin setIsSignedIn={setIsSignedIn} isSignedIn={isSignedIn} />
-      <SignOut setIsSignedIn={setIsSignedIn} isSignedIn={isSignedIn} />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <AuthSignin setIsSignedIn={setIsSignedIn} isSignedIn={isSignedIn} />
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <AuthSignup setIsSignedIn={setIsSignedIn} isSignedIn={isSignedIn} />
+          }
+        />
+      </Routes>
     </>
   );
 }

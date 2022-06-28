@@ -1,5 +1,6 @@
 import { Auth } from "aws-amplify";
 import { useEffect, useState } from "react";
+import SignoutButton from "../components/SignoutButton";
 
 const AuthSignin = (props) => {
   const [username, setUsername] = useState("");
@@ -41,14 +42,20 @@ const AuthSignin = (props) => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <label htmlFor="username">username or email</label>
-      <input type={username} name="username" onChange={onChange} />
-      <label htmlFor="password">password</label>
-      <input type={password} name="password" onChange={onChange} />
-      <button type="submit">Signup</button>
-      <p>{message}</p>
-    </form>
+    <>
+      <form onSubmit={onSubmit}>
+        <label htmlFor="username">username or email</label>
+        <input type={username} name="username" onChange={onChange} />
+        <label htmlFor="password">password</label>
+        <input type={password} name="password" onChange={onChange} />
+        <button type="submit">Signup</button>
+        <p>{message}</p>
+      </form>
+      <SignoutButton
+        setIsSignedIn={props.setIsSignedIn}
+        isSignedIn={props.isSignedIn}
+      />
+    </>
   );
 };
 
