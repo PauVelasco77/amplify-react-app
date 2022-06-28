@@ -1,8 +1,8 @@
 import "./App.css";
-import Signup from "./Signup";
+import AuthSignup from "./AuthSignup";
 
 function App() {
-  return <Signup />;
+  return <AuthSignup />;
 }
 
 export default App;
