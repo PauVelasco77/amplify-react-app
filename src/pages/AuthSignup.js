@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Auth } from "aws-amplify";
 
 const AuthSignup = () => {
@@ -49,6 +50,9 @@ const AuthSignup = () => {
         <button type="submit">Signup</button>
         <p>{message}</p>
       </form>
+      <p>
+        Already an user? <Link to={"/"}>Login</Link>
+      </p>
     </div>
   );
 };
