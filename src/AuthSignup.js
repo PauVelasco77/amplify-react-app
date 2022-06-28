@@ -5,6 +5,7 @@ const AuthSignup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("You are not signed up!");
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +18,9 @@ const AuthSignup = () => {
         },
       });
       console.log(user);
+      setMessage("You are signed up!");
     } catch (error) {
+      setMessage(error.message);
       console.log("error signing up:", error);
     }
   };
@@ -44,6 +47,7 @@ const AuthSignup = () => {
         <label htmlFor="password">password</label>
         <input type={password} name="password" onChange={onChange} />
         <button type="submit">Signup</button>
+        <p>{message}</p>
       </form>
     </div>
   );
