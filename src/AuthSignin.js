@@ -7,12 +7,19 @@ const AuthSignin = (props) => {
   const [message, setMessage] = useState("You are not signed in!");
 
   useEffect(() => {
-    if (props.isSignedIn) {
-      setMessage("You are signed in!");
-    } else {
-      setMessage("You are not signed in!");
-    }
-  }, [props.isSignedIn]);
+    (async () => {
+      try {
+        const data = await Auth.currentAuthenticatedUser();
+        if (data) {
+          props.setIsSignedIn(true);
+          setMessage(`You are signed in! ${data.username}`);
+        }
+      } catch (error) {
+        props.setIsSignedIn(false);
+        setMessage("You are not signed in!");
+      }
+    })();
+  }, [props]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +42,7 @@ const AuthSignin = (props) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <label htmlFor="username">username</label>
+      <label htmlFor="username">username or email</label>
       <input type={username} name="username" onChange={onChange} />
       <label htmlFor="password">password</label>
       <input type={password} name="password" onChange={onChange} />
