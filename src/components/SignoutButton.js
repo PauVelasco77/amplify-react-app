@@ -1,6 +1,6 @@
 import { Auth } from "aws-amplify";
 
-const Signout = (props) => {
+const SignoutButton = (props) => {
   const onClick = async () => {
     try {
       await Auth.signOut();
@@ -17,4 +17,4 @@ const Signout = (props) => {
   );
 };
 
-export default Signout;
+export default SignoutButton;

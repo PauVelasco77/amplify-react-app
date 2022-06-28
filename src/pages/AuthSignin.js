@@ -1,5 +1,7 @@
 import { Auth } from "aws-amplify";
 import { useEffect, useState } from "react";
+import SignoutButton from "../components/SignoutButton";
+import { Link } from "react-router-dom";
 
 const AuthSignin = (props) => {
   const [username, setUsername] = useState("");
@@ -28,6 +30,7 @@ const AuthSignin = (props) => {
       props.setIsSignedIn(true);
     } catch (error) {
       console.log("error signing in:", error);
+      setMessage(error.message);
     }
   };
 
@@ -41,14 +44,26 @@ const AuthSignin = (props) => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <label htmlFor="username">username or email</label>
-      <input type={username} name="username" onChange={onChange} />
-      <label htmlFor="password">password</label>
-      <input type={password} name="password" onChange={onChange} />
-      <button type="submit">Signup</button>
-      <p>{message}</p>
-    </form>
+    <>
+      <div>
+        <form onSubmit={onSubmit}>
+          <label htmlFor="username">username or email</label>
+          <input type={username} name="username" onChange={onChange} />
+          <label htmlFor="password">password</label>
+          <input type={password} name="password" onChange={onChange} />
+          <button type="submit">Signup</button>
+          <p>{message}</p>
+        </form>
+        <SignoutButton
+          setIsSignedIn={props.setIsSignedIn}
+          isSignedIn={props.isSignedIn}
+        />
+
+        <p>
+          Dont have an account? <Link to={"/signup"}>Signup here</Link>
+        </p>
+      </div>
+    </>
   );
 };
 
