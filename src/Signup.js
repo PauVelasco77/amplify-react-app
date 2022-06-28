@@ -6,7 +6,6 @@ const Signup = () => {
   const [password, setPassword] = useState("");
 
   const onSubmit = async (e) => {
-    console.log("email: ", email);
     e.preventDefault();
     await UserPool.signUp(email, password, [], null, (err, data) => {
       if (err) {
@@ -18,13 +17,11 @@ const Signup = () => {
   };
 
   const onChange = (e) => {
-    if (e.target.value === "email") {
+    if (e.target.name === "email") {
       setEmail(e.target.value);
-      console.log(email, password);
     }
-    if (e.target.value === "password") {
+    if (e.target.name === "password") {
       setPassword(e.target.value);
-      console.log(email, password);
     }
   };
 
