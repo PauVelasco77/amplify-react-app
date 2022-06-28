@@ -1,17 +1,24 @@
 import { Auth } from "aws-amplify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const AuthSignin = () => {
+const AuthSignin = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("You are not signed in!");
+
+  useEffect(() => {
+    if (props.isSignedIn) {
+      setMessage("You are signed in!");
+    } else {
+      setMessage("You are not signed in!");
+    }
+  }, [props.isSignedIn]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
       await Auth.signIn(username, password);
-      console.log("You are signed in!");
-      setMessage("You are signed in!");
+      props.setIsSignedIn(true);
     } catch (error) {
       console.log("error signing in:", error);
     }
