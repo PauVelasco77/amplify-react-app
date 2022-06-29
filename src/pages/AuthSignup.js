@@ -10,15 +10,13 @@ import { Lock } from "@mui/icons-material";
 import { red } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import Link from "@mui/material/Link";
-import LoadingSpinner from "../components/LoadingSpinner";
 
-const AuthSignup = () => {
+const AuthSignup = ({ setLoading }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("You are not signed up!");
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e) => {
     setLoading(true);
@@ -58,7 +56,6 @@ const AuthSignup = () => {
 
   return (
     <>
-      {loading && <LoadingSpinner />}
       <Container component="main" maxWidth="xs">
         <CssBaseline>
           <Box
