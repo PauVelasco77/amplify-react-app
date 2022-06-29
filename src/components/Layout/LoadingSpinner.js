@@ -18,16 +18,21 @@ const LoadingContainer = styled.div`
   z-index: 100;
 `;
 
-const LoadingSpinner = () => {
+const LoadingSpinner = ({ children, loading }) => {
   return (
-    <LoadingContainer>
-      <Box sx={{ position: "relative" }}>
-        <CircularProgress
-          variant="indeterminate"
-          sx={{ color: lightBlue[400] }}
-        />
-      </Box>
-    </LoadingContainer>
+    <>
+      {loading && (
+        <LoadingContainer>
+          <Box sx={{ position: "relative" }}>
+            <CircularProgress
+              variant="indeterminate"
+              sx={{ color: lightBlue[400] }}
+            />
+          </Box>
+        </LoadingContainer>
+      )}
+      {children}
+    </>
   );
 };
 
