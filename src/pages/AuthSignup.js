@@ -18,7 +18,7 @@ const AuthSignup = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("You are not signed up!");
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e) => {
     setLoading(true);
@@ -36,6 +36,7 @@ const AuthSignup = () => {
         setMessage("You are signed up!");
         navigate("/");
       }
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       setMessage(error.message);
@@ -74,7 +75,7 @@ const AuthSignup = () => {
             <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
               <TextField
                 autoComplete="off"
-                error={message.includes("username")}
+                error={message.includes("Username")}
                 fullWidth
                 margin="normal"
                 required
@@ -121,7 +122,7 @@ const AuthSignup = () => {
             </Box>
             <p>
               Already an user?{" "}
-              <Link href="/" underline="hover">
+              <Link href="/" underline="hover" onClick={() => setLoading(true)}>
                 Login
               </Link>
             </p>
