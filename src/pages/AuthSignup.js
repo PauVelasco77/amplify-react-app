@@ -19,8 +19,8 @@ const AuthSignup = ({ setLoading }) => {
   const navigate = useNavigate();
 
   const onSubmit = async (e) => {
-    setLoading(true);
     e.preventDefault();
+    setLoading(true);
     try {
       if (email && password && username) {
         const { user } = await Auth.signUp({
@@ -32,7 +32,7 @@ const AuthSignup = ({ setLoading }) => {
         });
         console.log(user);
         setMessage("You are signed up!");
-        navigate("/");
+        navigate("/signin");
       }
       setLoading(false);
     } catch (error) {
@@ -119,7 +119,11 @@ const AuthSignup = ({ setLoading }) => {
             </Box>
             <p>
               Already an user?{" "}
-              <Link href="/" underline="hover" onClick={() => setLoading(true)}>
+              <Link
+                href="/signin"
+                underline="hover"
+                onClick={() => setLoading(true)}
+              >
                 Login
               </Link>
             </p>
