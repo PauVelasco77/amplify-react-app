@@ -4,6 +4,7 @@ import AuthSignin from "./pages/AuthSignin";
 import AuthSignup from "./pages/AuthSignup";
 import { Route, Routes } from "react-router-dom";
 import LoadingSpinner from "./components/Layout/LoadingSpinner";
+import MainPage from "./pages/MainPage";
 
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -16,7 +17,18 @@ function App() {
           <Route
             path="/"
             element={
+              <MainPage
+                setLoading={setLoading}
+                setIsSignedIn={setIsSignedIn}
+                isSignedIn={isSignedIn}
+              />
+            }
+          />
+          <Route
+            path="/signin"
+            element={
               <AuthSignin
+                setLoading={setLoading}
                 setIsSignedIn={setIsSignedIn}
                 isSignedIn={isSignedIn}
               />
