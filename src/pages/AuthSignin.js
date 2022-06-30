@@ -70,7 +70,6 @@ const AuthSignin = (props) => {
             </Avatar>
             <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
               <TextField
-                autoComplete="off"
                 error={message.match(/username/i)}
                 fullWidth
                 margin="normal"
