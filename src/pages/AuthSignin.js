@@ -1,7 +1,13 @@
 import { Auth } from "aws-amplify";
 import { useEffect, useState } from "react";
-import SignoutButton from "../components/SignoutButton";
 import { Link, useNavigate } from "react-router-dom";
+import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
+import { Box } from "@mui/system";
+import { Avatar, TextField } from "@mui/material";
+import Button from "@mui/material/Button";
+import { red } from "@mui/material/colors";
+import { Face } from "@mui/icons-material";
 
 const AuthSignin = (props) => {
   const [username, setUsername] = useState("");
@@ -19,7 +25,6 @@ const AuthSignin = (props) => {
         }
       } catch (error) {
         props.setIsSignedIn(false);
-        setMessage("You are not signed in!");
       }
     })();
   }, [navigate, props]);
@@ -50,24 +55,63 @@ const AuthSignin = (props) => {
 
   return (
     <>
-      <div>
-        <form onSubmit={onSubmit}>
-          <label htmlFor="username">username or email</label>
-          <input type={username} name="username" onChange={onChange} />
-          <label htmlFor="password">password</label>
-          <input type={password} name="password" onChange={onChange} />
-          <button type="submit">Signup</button>
-          <p>{message}</p>
-        </form>
-        <SignoutButton
-          setIsSignedIn={props.setIsSignedIn}
-          isSignedIn={props.isSignedIn}
-        />
-
-        <p>
-          Dont have an account? <Link to={"/signup"}>Signup here</Link>
-        </p>
-      </div>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline>
+          <Box
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: red[500] }}>
+              <Face sx={{ bgcolor: red[500] }} />
+            </Avatar>
+            <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
+              <TextField
+                autoComplete="off"
+                error={message.match(/username/i)}
+                fullWidth
+                margin="normal"
+                required
+                label={
+                  message.match(/username/i) ? message : "username or email"
+                }
+                name="username"
+                type="text"
+                value={username}
+                onChange={onChange}
+                autoFocus
+              />
+              <TextField
+                autoComplete="off"
+                error={message.match(/password/i)}
+                fullWidth
+                margin="normal"
+                required
+                label={message.match(/password/i) ? message : "password"}
+                name="password"
+                type="password"
+                value={password}
+                onChange={onChange}
+                autoFocus
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Login
+              </Button>
+            </Box>
+            <p>
+              Dont have an account? <Link to={"/signup"}>Signup here</Link>
+            </p>
+          </Box>
+        </CssBaseline>
+      </Container>
     </>
   );
 };
