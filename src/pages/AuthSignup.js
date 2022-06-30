@@ -115,7 +115,6 @@ const AuthSignup = ({ setLoading }) => {
               >
                 Signup
               </Button>
-              <p>{message}</p>
             </Box>
             <p>
               Already an user?{" "}
