@@ -21,24 +21,36 @@ const AuthSignup = ({ setLoading }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      if (email && password && username) {
-        const { user } = await Auth.signUp({
-          username: username,
-          password: password,
-          attributes: {
-            email: email,
-          },
-        });
-        console.log(user);
-        setMessage("You are signed up!");
-        navigate("/signin");
+    if (username === "") {
+      console.log("Please enter a username");
+      setMessage("Please enter a username");
+      setLoading(false);
+    } else if (email === "") {
+      setMessage("Please enter an email");
+      setLoading(false);
+    } else if (password === "") {
+      setMessage("Please enter a password");
+      setLoading(false);
+    } else {
+      try {
+        if (email && password && username) {
+          const { user } = await Auth.signUp({
+            username: username,
+            password: password,
+            attributes: {
+              email: email,
+            },
+          });
+          console.log(user);
+          setMessage("You are signed up!");
+          navigate("/signin");
+        }
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        setMessage(error.message);
+        console.log("error signing up:", error);
       }
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      setMessage(error.message);
-      console.log("error signing up:", error);
     }
   };
 
@@ -72,11 +84,11 @@ const AuthSignup = ({ setLoading }) => {
             <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
               <TextField
                 autoComplete="off"
-                error={message.includes("Username")}
+                error={message.match(/username/i)}
                 fullWidth
                 margin="normal"
                 required
-                label={message.includes("Username") ? message : "username"}
+                label={message.match(/username/i) ? message : "username"}
                 name="username"
                 type="text"
                 value={username}
@@ -84,11 +96,11 @@ const AuthSignup = ({ setLoading }) => {
                 autoFocus
               />
               <TextField
-                error={message.includes("email")}
+                error={message.match(/email/i)}
                 fullWidth
                 margin="normal"
                 required
-                label={message.includes("email") ? message : "email"}
+                label={message.match(/email/i) ? message : "email"}
                 name="email"
                 type="email"
                 value={email}
@@ -96,11 +108,11 @@ const AuthSignup = ({ setLoading }) => {
                 autoFocus
               />
               <TextField
-                error={message.includes("Password")}
+                error={message.match(/password/i)}
                 fullWidth
                 margin="normal"
                 required
-                label={message.includes("Password") ? message : "password"}
+                label={message.match(/password/i) ? message : "password"}
                 name="password"
                 type="password"
                 value={password}

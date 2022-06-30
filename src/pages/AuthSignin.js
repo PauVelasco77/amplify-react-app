@@ -32,15 +32,23 @@ const AuthSignin = (props) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     props.setLoading(true);
-    try {
-      await Auth.signIn(username, password);
-      props.setIsSignedIn(true);
-      navigate("/");
+    if (username === "") {
+      setMessage("Please enter a username");
       props.setLoading(false);
-    } catch (error) {
-      console.log("error signing in:", error);
-      setMessage(error.message);
+    } else if (password === "") {
+      setMessage("Please enter a password");
       props.setLoading(false);
+    } else {
+      try {
+        await Auth.signIn(username, password);
+        props.setIsSignedIn(true);
+        navigate("/");
+        props.setLoading(false);
+      } catch (error) {
+        console.log("error signing in:", error);
+        setMessage(error.message);
+        props.setLoading(false);
+      }
     }
   };
 
