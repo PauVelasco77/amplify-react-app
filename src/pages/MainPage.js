@@ -1,24 +1,19 @@
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
-import SignoutButton from "../components/SignoutButton";
-import { useEffect } from "react";
-import styled from "styled-components";
-
-const LogoutContainer = styled.div`
-  height: 100vh;
-  width: 100vw;
-  background-color: yellow;
-`;
+import { useEffect, useState } from "react";
+import Container from "@mui/material/Container";
+import { Button, CssBaseline, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 
 const MainPage = (props) => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
-    props.setLoading(true);
     (async () => {
       try {
-        const hola = await Auth.currentAuthenticatedUser();
-        console.log("hola", hola);
+        const { username } = await Auth.currentAuthenticatedUser();
+        setUsername(username);
         props.setLoading(false);
       } catch (error) {
         props.setLoading(false);
@@ -41,9 +36,30 @@ const MainPage = (props) => {
   };
   return (
     <>
-      <LogoutContainer>
-        <SignoutButton onClick={onClick} />
-      </LogoutContainer>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline>
+          <Box
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Typography align="center" variant="h4">
+              USERNAME: {username}
+            </Typography>
+            <Button
+              fullWidth
+              variant="contained"
+              onClick={onClick}
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Logout
+            </Button>
+          </Box>
+        </CssBaseline>
+      </Container>
     </>
   );
 };
