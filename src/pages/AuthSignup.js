@@ -97,11 +97,15 @@ const AuthSignup = (props) => {
             </Avatar>
             <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
               <TextField
-                error={message.match(/username/i)}
+                error={message.match(/username/i) || message.match(/user/i)}
                 fullWidth
                 margin="normal"
                 required
-                label={message.match(/username/i) ? message : "username"}
+                label={
+                  message.match(/username/i) || message.match(/user/i)
+                    ? message
+                    : "username"
+                }
                 name="username"
                 type="text"
                 value={username}
