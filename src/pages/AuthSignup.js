@@ -69,6 +69,8 @@ const AuthSignup = (props) => {
   };
 
   const onChange = (e) => {
+    setMessage("");
+
     if (e.target.name === "email") {
       setEmail(e.target.value);
     }

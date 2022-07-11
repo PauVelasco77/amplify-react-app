@@ -5,15 +5,15 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import { Box } from "@mui/system";
 import { Avatar, TextField } from "@mui/material";
-import Button from "@mui/material/Button";
 import { red } from "@mui/material/colors";
 import { Face } from "@mui/icons-material";
 import Link from "@mui/material/Link";
+import ButtonPopUp from "../components/ButtonPopUp";
 
 const AuthSignin = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("You are not signed in!");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -53,6 +53,7 @@ const AuthSignin = (props) => {
   };
 
   const onChange = (e) => {
+    setMessage("");
     if (e.target.name === "username") {
       setUsername(e.target.value);
     }
@@ -104,14 +105,8 @@ const AuthSignin = (props) => {
                 onChange={onChange}
                 autoFocus
               />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Login
-              </Button>
+
+              <ButtonPopUp textButton={"Login"} message={message} />
             </Box>
             <p>
               Dont have an account?{" "}
