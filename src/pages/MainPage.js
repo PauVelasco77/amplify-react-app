@@ -1,6 +1,5 @@
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
-import SignoutButton from "../components/SignoutButton";
 import { useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import { Button, CssBaseline, Typography } from "@mui/material";
