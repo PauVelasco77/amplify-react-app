@@ -2,6 +2,13 @@ import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import SignoutButton from "../components/SignoutButton";
 import { useEffect } from "react";
+import styled from "styled-components";
+
+const LogoutContainer = styled.div`
+  height: 100vh;
+  width: 100vw;
+  background-color: yellow;
+`;
 
 const MainPage = (props) => {
   const navigate = useNavigate();
@@ -10,7 +17,8 @@ const MainPage = (props) => {
     props.setLoading(true);
     (async () => {
       try {
-        await Auth.currentAuthenticatedUser();
+        const hola = await Auth.currentAuthenticatedUser();
+        console.log("hola", hola);
         props.setLoading(false);
       } catch (error) {
         props.setLoading(false);
@@ -31,10 +39,11 @@ const MainPage = (props) => {
       props.setLoading(false);
     }
   };
-  console.log("MainPage props:", props);
   return (
     <>
-      <SignoutButton onClick={onClick} />
+      <LogoutContainer>
+        <SignoutButton onClick={onClick} />
+      </LogoutContainer>
     </>
   );
 };

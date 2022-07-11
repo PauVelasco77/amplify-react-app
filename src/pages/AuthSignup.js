@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Auth } from "aws-amplify";
 import { TextField } from "@mui/material";
 import { Box } from "@mui/system";
@@ -11,26 +11,40 @@ import { red } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import Link from "@mui/material/Link";
 
-const AuthSignup = ({ setLoading }) => {
+const AuthSignup = (props) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("You are not signed up!");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await Auth.currentAuthenticatedUser();
+        if (data) {
+          props.setIsSignedIn(true);
+          navigate("/");
+        }
+      } catch (error) {
+        props.setIsSignedIn(false);
+      }
+    })();
+  }, [navigate, props]);
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    props.setLoading(true);
     if (username === "") {
       console.log("Please enter a username");
       setMessage("Please enter a username");
-      setLoading(false);
+      props.setLoading(false);
     } else if (email === "") {
       setMessage("Please enter an email");
-      setLoading(false);
+      props.setLoading(false);
     } else if (password === "") {
       setMessage("Please enter a password");
-      setLoading(false);
+      props.setLoading(false);
     } else {
       try {
         if (email && password && username) {
@@ -45,9 +59,9 @@ const AuthSignup = ({ setLoading }) => {
           setMessage("You are signed up!");
           navigate("/signin");
         }
-        setLoading(false);
+        props.setLoading(false);
       } catch (error) {
-        setLoading(false);
+        props.setLoading(false);
         setMessage(error.message);
         console.log("error signing up:", error);
       }
@@ -83,7 +97,6 @@ const AuthSignup = ({ setLoading }) => {
             </Avatar>
             <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
               <TextField
-                autoComplete="off"
                 error={message.match(/username/i)}
                 fullWidth
                 margin="normal"
@@ -108,6 +121,7 @@ const AuthSignup = ({ setLoading }) => {
                 autoFocus
               />
               <TextField
+                autoComplete="off"
                 error={message.match(/password/i)}
                 fullWidth
                 margin="normal"
@@ -133,7 +147,7 @@ const AuthSignup = ({ setLoading }) => {
               <Link
                 href="/signin"
                 underline="hover"
-                onClick={() => setLoading(true)}
+                onClick={() => props.setLoading(true)}
               >
                 Login
               </Link>

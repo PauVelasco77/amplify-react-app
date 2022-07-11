@@ -9,7 +9,6 @@ import MainPage from "./pages/MainPage";
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [loading, setLoading] = useState(false);
-
   return (
     <>
       <LoadingSpinner loading={loading}>
