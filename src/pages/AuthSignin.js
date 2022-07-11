@@ -1,6 +1,6 @@
 import { Auth } from "aws-amplify";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import { Box } from "@mui/system";
@@ -8,6 +8,7 @@ import { Avatar, TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import { red } from "@mui/material/colors";
 import { Face } from "@mui/icons-material";
+import Link from "@mui/material/Link";
 
 const AuthSignin = (props) => {
   const [username, setUsername] = useState("");
@@ -43,7 +44,6 @@ const AuthSignin = (props) => {
         await Auth.signIn(username, password);
         props.setIsSignedIn(true);
         navigate("/");
-        props.setLoading(false);
       } catch (error) {
         console.log("error signing in:", error);
         setMessage(error.message);
@@ -114,7 +114,14 @@ const AuthSignin = (props) => {
               </Button>
             </Box>
             <p>
-              Dont have an account? <Link to={"/signup"}>Signup here</Link>
+              Dont have an account?{" "}
+              <Link
+                href="/signup"
+                underline="hover"
+                onClick={() => props.setLoading(true)}
+              >
+                Signup here
+              </Link>
             </p>
           </Box>
         </CssBaseline>
