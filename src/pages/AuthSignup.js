@@ -64,6 +64,9 @@ const AuthSignup = (props) => {
           });
           console.log(user);
           setMessage("You are signed up!");
+          setTimeout(() => {
+            setMessage("");
+          }, 5000);
           // navigate("/signin");
         }
         props.setLoading(false);
