@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Auth } from "aws-amplify";
-import { TextField } from "@mui/material";
+import { Alert, styled, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,11 +11,18 @@ import { red } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import Link from "@mui/material/Link";
 
+const AlertSignup = styled(Alert)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+`;
+
 const AuthSignup = (props) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("You are not signed up!");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,7 +64,10 @@ const AuthSignup = (props) => {
           });
           console.log(user);
           setMessage("You are signed up!");
-          navigate("/signin");
+          setTimeout(() => {
+            setMessage("");
+          }, 5000);
+          // navigate("/signin");
         }
         props.setLoading(false);
       } catch (error) {
@@ -84,6 +94,11 @@ const AuthSignup = (props) => {
 
   return (
     <>
+      {message === "You are signed up!" && (
+        <AlertSignup severity="success" color="success">
+          {message}
+        </AlertSignup>
+      )}
       <Container component="main" maxWidth="xs">
         <CssBaseline>
           <Box
