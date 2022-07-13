@@ -2,8 +2,9 @@ import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Container from "@mui/material/Container";
-import { Button, CssBaseline, Typography } from "@mui/material";
+import { CssBaseline, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import GenericButton from "../components/GenericButton";
 
 const MainPage = (props) => {
   const navigate = useNavigate();
@@ -43,20 +44,17 @@ const MainPage = (props) => {
               marginTop: 8,
               display: "flex",
               flexDirection: "column",
-              alignItems: "center",
             }}
           >
             <Typography align="center" variant="h4">
               USERNAME: {username}
             </Typography>
-            <Button
-              fullWidth
-              variant="contained"
-              onClick={onClick}
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Logout
-            </Button>
+
+            <GenericButton
+              textButton="Logout"
+              actionOnClick={() => onClick()}
+              message={""}
+            />
           </Box>
         </CssBaseline>
       </Container>
