@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Auth } from "aws-amplify";
 import { Alert, styled, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
@@ -10,6 +9,7 @@ import { Lock } from "@mui/icons-material";
 import { red } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import Link from "@mui/material/Link";
+import GenericButton from "../components/GenericButton";
 
 const AlertSignup = styled(Alert)`
   position: fixed;
@@ -154,14 +154,7 @@ const AuthSignup = (props) => {
                 onChange={onChange}
                 autoFocus
               />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Signup
-              </Button>
+              <GenericButton textButton={"Signup"} message={message} />
             </Box>
             <p>
               Already an user?{" "}
