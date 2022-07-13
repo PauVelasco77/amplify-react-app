@@ -4,9 +4,13 @@ import Popover from "@mui/material/Popover";
 import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
 import { red } from "@mui/material/colors";
 
-const ButtonPopUp = ({ textButton, message }) => {
+const GenericButton = ({
+  textButton,
+  actionOnClick = () => {},
+  message = "",
+}) => {
   return (
-    <PopupState variant="popover" popupId="demo-popup-popover">
+    <PopupState fullWidth variant="popover" popupId="demo-popup-popover">
       {(popupState) => (
         <div>
           <Button
@@ -15,6 +19,7 @@ const ButtonPopUp = ({ textButton, message }) => {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            onClick={actionOnClick}
           >
             {textButton}
           </Button>
@@ -39,4 +44,4 @@ const ButtonPopUp = ({ textButton, message }) => {
   );
 };
 
-export default ButtonPopUp;
+export default GenericButton;
