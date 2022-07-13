@@ -8,7 +8,7 @@ import { Avatar, TextField } from "@mui/material";
 import { red } from "@mui/material/colors";
 import { Face } from "@mui/icons-material";
 import Link from "@mui/material/Link";
-import ButtonPopUp from "../components/ButtonPopUp";
+import GenericButton from "../components/GenericButton";
 
 const AuthSignin = (props) => {
   const [username, setUsername] = useState("");
@@ -106,7 +106,7 @@ const AuthSignin = (props) => {
                 autoFocus
               />
 
-              <ButtonPopUp textButton={"Login"} message={message} />
+              <GenericButton textButton={"Login"} message={message} />
             </Box>
             <p>
               Dont have an account?{" "}
